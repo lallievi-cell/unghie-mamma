@@ -14,7 +14,7 @@ function load(){try{db=Object.assign({clients:[],appointments:[],services:SV},JS
 if(!db.services||!db.services.length)db.services=SV.slice()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){alert("Salvataggio non riuscito")}}
 function euro(n){return(Number(n)||0).toLocaleString("it-IT",{style:"currency",currency:"EUR"})}
-function esc(s){return String(s||"").replace(/[&<>"]/g,c=>({"&":"&","<":"<",">":">","\"":"""}[c]))}
+function esc(s){return String(s||"").replace(/&/g,"&").replace(/</g,"<").replace(/>/g,">")}
 function C(id){return db.clients.find(x=>x.id===id)}
 function S(id){return (db.services||[]).find(x=>x.id===id)}
 function apts(date){return db.appointments.filter(a=>a.date===date&&a.status!=="deleted").sort((a,b)=>(a.time||"").localeCompare(b.time||""))}
