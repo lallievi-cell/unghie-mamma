@@ -53,11 +53,10 @@
     .name { font-weight: 800; font-size: 17px; }
     .list-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
     .list-item:last-child { border-bottom: 0; padding-bottom: 0; }
-    .list-item:first-child { padding-top: 0; }
     .nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: #fff; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(4, 1fr); padding: 8px 6px calc(8px + var(--safe-bottom)); }
     .nav button { background: none; border: 0; color: var(--muted); font-size: 11px; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px; }
     .nav button.active { color: var(--rose); }
-    .nav .ico { font-size: 20px; line-height: 1; }
+    .nav .ico { font-size: 20px; }
     .modal-bg { position: fixed; inset: 0; background: rgba(43,26,31,.45); z-index: 40; display: none; align-items: flex-end; justify-content: center; }
     .modal-bg.show { display: flex; }
     .modal { background: #fff; width: 100%; max-width: 720px; max-height: 92dvh; overflow: auto; border-radius: 28px 28px 0 0; padding: 18px 16px calc(24px + var(--safe-bottom)); }
@@ -81,7 +80,7 @@
     <p id="subtitle">I tuoi appuntamenti</p>
   </header>
   <main class="wrap">
-    <input id="clientSearch" class="search hidden" type="search" enterkeyhint="search" autocomplete="off" autocorrect="off" placeholder="Cerca cliente o telefono" />
+    <input id="clientSearch" class="search hidden" type="search" enterkeyhint="search" autocomplete="off" placeholder="Cerca cliente o telefono" />
     <div id="app"></div>
   </main>
   <button class="fab" id="fab" type="button" onclick="openNew()">+</button>
@@ -93,5 +92,7 @@
   </nav>
   <div class="modal-bg" id="modalBg"><div class="modal" id="modal"></div></div>
   <script src="./app.js"></script>
+  <script src="./app2.js"></script>
+  <script src="./app3.js"></script>
 </body>
 </html>
