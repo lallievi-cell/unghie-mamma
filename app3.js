@@ -170,9 +170,9 @@ function formExpense(id){
   const desc=x?(x.desc||""):"";
 
   let h="<h2>"+(x?"Modifica spesa":"Nuova spesa")+"</h2>";
-  h+="<form onsubmit='event.preventDefault();saveExpense("+(id?"\""+id+"\"":"null")+")'>";
+  h+="<form novalidate onsubmit='event.preventDefault();saveExpense("+(id?"\""+id+"\"":"null")+")'>";
   h+="<label>Quanto hai speso (€)</label>";
-  h+="<input id='e_amt' type='number' step='0.50' min='0.10' placeholder='Es. 35' value='"+amt+"' required autofocus style='font-size:26px;font-weight:900;color:var(--bad)'/>";
+  h+="<input id='e_amt' type='text' inputmode='decimal' placeholder='Es. 35' value='"+amt+"' required autofocus style='font-size:26px;font-weight:900;color:var(--bad)'/>";
   
   h+="<label>Giorno</label>";
   h+="<input id='e_date' type='date' value='"+d+"' required/>";
@@ -198,11 +198,17 @@ function formExpense(id){
   openModal(h);
 }
 function saveExpense(id){
-  const amt=parseFloat(document.getElementById("e_amt").value);
-  if(!amt||amt<=0){alert("Inserisci un importo valido");return;}
-  const date=document.getElementById("e_date").value||today();
-  const cat=document.getElementById("e_cat").value||"materiali";
-  const desc=document.getElementById("e_desc").value.trim();
+  const elAmt=document.getElementById("e_amt");
+  const rawAmt=(elAmt?elAmt.value:"").replace(",",".").trim();
+  const amt=Math.round(parseFloat(rawAmt)*100)/100;
+  if(isNaN(amt)||amt<=0||!isFinite(amt)){
+    alert("Inserisci un importo valido");
+    if(elAmt) elAmt.focus();
+    return;
+  }
+  const date=(document.getElementById("e_date")?document.getElementById("e_date").value:"")||today();
+  const cat=(document.getElementById("e_cat")?document.getElementById("e_cat").value:"")||"materiali";
+  const desc=(document.getElementById("e_desc")?document.getElementById("e_desc").value:"").trim();
 
   const rec={
     id:id||uid(),
