@@ -3,7 +3,7 @@ const BKEY="unghie-mamma-backup-at";
 const SV=[
  {id:"ricostruzione",name:"Ricostruzione",minutes:90,price:40},
  {id:"refill",name:"Rifatto / refill",minutes:60,price:30},
- {id:"semiperm",name:"Smalto semipermanente",minutes:50,price:25},
+ {id:"semiperm",name:"Smalto semipermanente",minutes:50,price:20},
  {id:"nailart",name:"Decorazione extra",minutes:30,price:10},
  {id:"rimozione",name:"Togliere unghie",minutes:30,price:15},
  {id:"pedicure",name:"Piedi",minutes:60,price:30}
@@ -17,6 +17,7 @@ function tomorrow(){const d=parseISO(today());d.setDate(d.getDate()+1);return ym
 function parseISO(iso){const p=(iso||"").split("-");return new Date(+p[0],(+p[1]||1)-1,+p[2]||1)}
 function load(){try{db=Object.assign({clients:[],appointments:[],services:SV,expenses:[]},JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){db={clients:[],appointments:[],services:SV,expenses:[]}}
 if(!db.services||!db.services.length)db.services=SV.slice();
+else{const s=db.services.find(x=>x.id==="semiperm");if(s&&s.price===25)s.price=20;}
 if(!db.expenses)db.expenses=[];}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(db));toast("Salvato.")}catch(e){if(e&&(e.name==='QuotaExceededError'||e.code===22)){alert("Attenzione: memoria del telefono piena! Rimuovi qualche foto dalle schede clienti per liberare spazio.")}else{alert("Salvataggio non riuscito: memoria non disponibile.")}}}
 function toast(msg){const el=document.getElementById("toast");if(!el)return;el.textContent=msg||"Salvato.";el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove("show")},1400)}
